@@ -30,7 +30,7 @@ end
   def destroy
     # logout the user
     #find ben's code to set to nil
-    #session["user_id"] = nil
+    session["user_id"] = nil
     flash["notice"] = "Goodbye."
     redirect_to "/login"
   end
