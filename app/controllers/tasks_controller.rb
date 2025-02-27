@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
   def index
     if session["user_id"] != nil
-      @tasks = Task.all
-    else 
+      @tasks = Task.where({ "user_id" => session["user_id"] })
+    else
+      flash["notice"] = "Login first!"
       redirect_to "/login"
     end
   end
@@ -17,11 +18,11 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find_by({ "id" => params["id"] })
-    
+
     if @task["user_id"] == session["user_id"]
-    @task.destroy
+      @task.destroy
     end
-    
+
     redirect_to "/tasks"
   end
 end
